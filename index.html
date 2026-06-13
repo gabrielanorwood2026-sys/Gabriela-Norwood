@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gabriela Norwood – Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Warm, friendly palette */
+      --sky:       #d4eaf7;
+      --sky-mid:   #a8d0ef;
+      --blue:      #4a90d9;
+      --blue-dark: #2563a8;
+      --cream:     #fafaf8;
+      --warm-tan:  #f5f2ed;
+      --sage:      #b8c9a3;
+      --sage-light:#dce8d0;
+      --coral:     #d9794d;
+      --charcoal:  #2c2c2c;
+      --gray:      #6b6b6b;
+      --light-gray:#e8e4dc;
+      --white:     #ffffff;
+      --radius-sm: 14px;
+      --radius-md: 22px;
+      --radius-lg: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ══════════ NAV ══════════ */
+    nav {
+      position: sticky; top: 0; z-index: 300;
+      background: rgba(250,250,248,0.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-gray);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+    }
+    .nav-logo {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.05rem; font-weight: 800;
+      color: var(--charcoal); text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 0.4rem; }
+    .nav-links a {
+      text-decoration: none; font-size: 1rem; font-weight: 700;
+      color: var(--charcoal); padding: 0.45rem 1rem;
+      border-radius: 50px; transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: var(--sky); color: var(--blue-dark); }
+    .nav-links a.active-nav { background: var(--blue); color: #fff; }
+
+    /* ══════════ PAGE ROUTING ══════════ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ══════════════════════════════════
+       HOME PAGE
+    ══════════════════════════════════ */
+
+    /* HERO — full-width photo with text overlay */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 92vh;
+      min-height: 560px;
+      overflow: hidden;
+      background: var(--sky);
+    }
+    .hero-section img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+    }
+    .hero-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-mid) 60%, #8bbee8 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--blue-dark);
+      text-align: center; gap: 0.6rem;
+    }
+    .hero-placeholder span { font-size: 3rem; }
+    /* gradient fade at bottom of hero */
+    .hero-section::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(250,250,248,0.95) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    /* text card over the hero */
+    .hero-card {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2rem;
+      right: 2rem;
+      max-width: none;
+      z-index: 2;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.8rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+    }
+    .hero-card h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--charcoal); margin-bottom: 0.6rem;
+    }
+    .hero-card h1 span { color: var(--blue-dark); }
+    .hero-card p {
+      font-size: 0.85rem; line-height: 1.6;
+      color: var(--gray); margin-bottom: 0.4rem;
+    }
+    .hero-card p:first-of-type {
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+    .hero-card p:nth-of-type(2) {
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+    .hero-card .welcome {
+      font-weight: 800; color: var(--blue-dark); font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+    .hero-cta {
+      display: inline-block; margin-top: 0.8rem;
+      background: var(--blue); color: #fff;
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      font-weight: 800; font-size: 0.85rem;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    /* TIMELINE */
+    #journey {
+      background: var(--cream);
+      padding: 4.5rem 0;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 900; text-align: center;
+      color: var(--charcoal); margin-bottom: 2.5rem;
+    }
+    .section-title span { color: var(--blue-dark); }
+    #journey .section-title { padding: 0 2rem; font-size: 1.8rem; }
+
+    .timeline-wrapper {
+      position: relative; overflow-x: auto; overflow-y: visible;
+      cursor: grab; -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin; scrollbar-color: var(--blue) var(--light-gray);
+    }
+    .timeline-wrapper:active { cursor: grabbing; }
+    .timeline-wrapper::-webkit-scrollbar { height: 5px; }
+    .timeline-wrapper::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+    .timeline-bg { display: none; }
+    .timeline-bg-inner { display: none; }
+    .timeline-scroll {
+      position: relative; z-index: 1;
+      display: flex; align-items: center;
+      padding: 5rem 5rem; min-width: max-content;
+      gap: 2.5rem;
+      background: rgba(74,144,217,0.08);
+    }
+    .timeline-line {
+      position: absolute; left: 0; right: 0;
+      top: 50%; height: 2px;
+      background: var(--charcoal);
+      transform: translateY(-50%); z-index: 0;
+    }
+    /* Each group: year box + events column side by side, centered on the line */
+    .timeline-group {
+      display: flex; align-items: center;
+      gap: 0.75rem; position: relative; z-index: 1;
+    }
+    /* Year box sits centered on the line */
+    .year-label {
+      font-family: 'Nunito', sans-serif; font-size: 1.05rem; font-weight: 800;
+      color: var(--charcoal); background: var(--cream);
+      padding: 0.35rem 0.75rem; border: 2px solid var(--charcoal);
+      border-radius: 10px;
+      white-space: nowrap; flex-shrink: 0;
+      position: relative; z-index: 2;
+    }
+    .timeline-dot { display: none !important; }
+    .timeline-mid { display: contents; }
+
+    /* Events column: two white boxes staggered, with blue vertical connector */
+    .timeline-events-col {
+      display: flex; flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      gap: 0;
+      /* total width = top box (210px) + bottom offset (105px) */
+      width: 315px;
+    }
+    /* The blue vertical connector line */
+    .timeline-events-col::before {
+      content: '';
+      position: absolute;
+      left: 105px;
+      top: 0; bottom: 50%;
+      width: 2px; background: var(--blue);
+      z-index: 0;
+    }
+    .timeline-events-col::after {
+      content: '';
+      position: absolute;
+      left: 210px;
+      top: 50%; bottom: 0;
+      width: 2px; background: var(--blue);
+      z-index: 0;
+    }
+    .timeline-event {
+      background: #fff;
+      border: 1.5px solid var(--light-gray);
+      border-radius: 8px; padding: 0.65rem 1rem;
+      text-align: center; font-size: 0.88rem; font-weight: 600;
+      color: var(--charcoal); line-height: 1.4;
+      width: 210px;
+      position: relative; z-index: 1;
+    }
+    /* floating icon bubble in top-right corner of each card */
+    .timeline-event[data-icon]::after {
+      content: attr(data-icon);
+      position: absolute;
+      top: -18px; right: -18px;
+      font-size: 1.5rem;
+      background: var(--cream);
+      border: 1.5px solid var(--light-gray);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      line-height: 1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      z-index: 3;
+    }
+    .timeline-event.clickable:hover[data-icon]::after {
+      background: var(--sky);
+      border-color: var(--blue);
+    }
+    /* above box: starts at left:0, sits above the line with more gap */
+    .timeline-event.above {
+      margin-left: 0;
+      margin-bottom: 24px;
+    }
+    /* below box: shifted right by 105px (half of 210px) so its center = right edge of above box */
+    .timeline-event.below {
+      margin-left: 105px;
+      margin-top: 24px;
+    }
+
+    .timeline-event.clickable {
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, transform 0.18s;
+    }
+    .timeline-event.clickable:hover {
+      background: var(--blue);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* SELECTED PROJECTS on home */
+    #home-projects { background: var(--sky); padding: 4.5rem 2rem; }
+    .home-proj-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 1.4rem; max-width: 1100px; margin: 0 auto;
+    }
+    .home-proj-grid .proj-card { flex: 1 1 260px; max-width: 380px; }
+    .proj-card {
+      background: var(--white); border-radius: var(--radius-md);
+      overflow: hidden; cursor: pointer; text-decoration: none; color: inherit;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+      transition: transform 0.22s, box-shadow 0.22s;
+      display: block;
+    }
+    .proj-card:hover { transform: translateY(-6px); box-shadow: 0 14px 36px rgba(74,144,217,0.18); }
+    .proj-thumb {
+      width: 100%; height: 210px; overflow: hidden;
+      background: var(--light-gray); display: flex;
+      align-items: center; justify-content: center; font-size: 3rem;
+    }
+    .proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .proj-info { padding: 1.15rem 1.25rem 1.3rem; }
+    .proj-info h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .proj-info p { font-size: 0.84rem; color: var(--gray); line-height: 1.6; }
+
+    .see-all-btn {
+      display: block; width: fit-content; margin: 2.2rem auto 0;
+      background: var(--blue); color: #fff; padding: 0.75rem 2.2rem;
+      border-radius: 50px; font-weight: 800; font-size: 0.9rem;
+      text-decoration: none; transition: background 0.2s, transform 0.2s;
+    }
+    .see-all-btn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal); color: #fff;
+      text-align: center; padding: 3rem 2rem;
+    }
+    footer h2 { font-family: 'Fraunces', serif; font-size: 1.7rem; margin-bottom: 0.8rem; }
+    .footer-links {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 2rem; margin-top: 0.6rem;
+    }
+    .footer-links a { color: var(--sky-mid); text-decoration: none; font-weight: 700; }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-btn {
+      background: transparent;
+      border: 2px solid var(--sky-mid);
+      color: var(--sky-mid) !important;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-weight: 800 !important;
+      font-size: 0.88rem;
+      text-decoration: none !important;
+      transition: background 0.2s, color 0.2s;
+    }
+    .footer-btn:hover {
+      background: var(--sky-mid) !important;
+      color: var(--charcoal) !important;
+      text-decoration: none !important;
+    }
+
+    /* ══════════════════════════════════
+       PROJECTS PAGE
+    ══════════════════════════════════ */
+    .projects-page-wrap { background: var(--cream); min-height: 100vh; padding-bottom: 5rem; }
+    .projects-page-header { text-align: center; padding: 3.5rem 2rem 1.5rem; }
+    .projects-page-header h1 { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 900; color: var(--charcoal); }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 0.5rem; padding: 0 2rem 2.5rem;
+    }
+    .filter-tab {
+      padding: 0.45rem 1.2rem; border-radius: 50px;
+      border: 2px solid var(--light-gray);
+      background: var(--white); font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem; font-weight: 700; color: var(--gray);
+      cursor: pointer; transition: all 0.18s;
+    }
+    .filter-tab:hover { border-color: var(--blue); color: var(--blue); }
+    .filter-tab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+    /* Big rounded grid — matches screenshot */
+    .big-proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .big-proj-card {
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--light-gray);
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.08);
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .big-proj-card:hover { transform: scale(1.04); box-shadow: 0 12px 36px rgba(74,144,217,0.22); }
+    .big-proj-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .big-proj-card .card-empty {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 0.8rem; color: var(--gray);
+      text-align: center; padding: 1rem; gap: 0.4rem;
+    }
+    .big-proj-card .card-empty span { font-size: 2rem; }
+    .big-proj-card .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.25s;
+      display: flex; align-items: flex-end;
+      padding: 1rem;
+    }
+    .big-proj-card:hover .card-overlay { opacity: 1; }
+    .card-overlay-text {
+      color: #fff; font-size: 0.85rem; font-weight: 700; line-height: 1.3;
+    }
+    .big-proj-card[data-hidden="true"] { display: none; }
+
+    /* ══════════════════════════════════
+       ABOUT ME PAGE — circular orbit collage
+    ══════════════════════════════════ */
+    .about-page-wrap {
+      background: var(--sage-light);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    .about-page-label {
+      text-align: center; padding: 3rem 0 0;
+      font-size: 1.4rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--charcoal); font-weight: 700;
+    }
+    /* Single column: collage centered */
+    .about-inner {
+      display: flex; justify-content: center; align-items: center;
+      flex: 1;
+      padding: 1rem;
+    }
+
+    /* ── ORBIT COLLAGE ── */
+    .about-collage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    /* Center circle — overlaps the surrounding photos */
+    .orbit-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42%;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      z-index: 15;
+      cursor: pointer;
+    }
+    .orbit-center img,
+    .orbit-center .photo-placeholder {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      border-radius: 50%;
+    }
+    .orbit-center .photo-placeholder {
+      background: var(--sky-mid);
+      color: var(--blue-dark);
+      font-size: 0.72rem; text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.25rem;
+    }
+    /* Full-screen bio overlay — lives outside overflow:hidden circle */
+    .bio-fullscreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(250, 250, 248, 0.97);
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    .bio-fullscreen.visible {
+      opacity: 1;
+      pointer-events: none;
+    }
+    .bio-fullscreen p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      font-weight: 600;
+      max-width: 680px;
+      margin: 0;
+      color: var(--charcoal);
+    }
+
+    /*
+      Orbit photos: 8 squares arranged so they TOUCH each other.
+      Each photo is 30% of the container wide.
+      They sit in a 3×3 grid minus the center, tightly packed with no gap.
+      Positions (top-left corner of each photo):
+        col 0 = 0%, col 1 = 35%, col 2 = 70%  (3 cols × ~30% + small overlap)
+        row 0 = 0%, row 1 = 35%, row 2 = 70%
+
+      Clock mapping:
+        top-left=op-7, top-center=op-0, top-right=op-1
+        mid-left=op-6,  [CENTER],        mid-right=op-2
+        bot-left=op-5, bot-center=op-4, bot-right=op-3
+    */
+    .orbit-photo {
+      position: absolute;
+      width: 30%;
+      aspect-ratio: 1/1;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+      border: 2.5px solid #fff;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+      z-index: 5;
+    }
+    .orbit-photo:hover {
+      transform: scale(1.07) !important;
+      box-shadow: 0 10px 28px rgba(74,144,217,0.30);
+      z-index: 12;
+    }
+    .orbit-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .orbit-photo .photo-placeholder {
+      width: 100%; height: 100%;
+      background: var(--sage);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 0.62rem; color: rgba(255,255,255,0.95);
+      text-align: center; padding: 0.4rem; gap: 0.2rem;
+    }
+
+    /* Photos 1,3,5,7 overlap photos 2,4,6,8 */
+    .op-7 { top:  8%;  left:  8%;  z-index: 5;  }  /* photo 8 — under */
+    .op-0 { top:  5%;  left: 35%;  z-index: 10; }  /* photo 1 — over  */
+    .op-1 { top:  8%;  left: 62%;  z-index: 5;  }  /* photo 2 — under */
+    .op-6 { top: 35%;  left:  5%;  z-index: 10; }  /* photo 7 — over  */
+    .op-2 { top: 35%;  left: 65%;  z-index: 10; }  /* photo 3 — over  */
+    .op-5 { top: 62%;  left:  8%;  z-index: 5;  }  /* photo 6 — under */
+    .op-4 { top: 65%;  left: 35%;  z-index: 10; }  /* photo 5 — over  */
+    .op-3 { top: 62%;  left: 62%;  z-index: 5;  }  /* photo 4 — under */
+
+
+    /*Posititiong of the photos inside of the boxes */
+    .op-7 img { transform: scale(1.3) translateY(-10%) translateX(11%);}  /* photo 8 — under */
+    .op-0 img { object-position: center 10% }  /* photo 1 — over  */
+    .op-1 img { object-position: center 80%;  }  /* photo 2 — under */
+    .op-6 img { object-position: center 80%; }  /* photo 7 — over  */
+    /*.op-2 img { object-position: ;  }  /* photo 3 — over  */
+    .op-5 img { transform: scale(1.5) translateY(10%);}  /* photo 6 — under */
+    .op-4 img { transform: scale(1.2) translateY(10%); } /*photo 5 — over  */
+    /*.op-3 img { object-position: ;  }  /* photo 4 — under */
+
+    .orbit-center img { transform: scale(2.3) translateY(-6.5%); transform-origin: center top;} /*zoom in on the center photo to fill it with mostly my face */
+
+
+    /* In-box overlay — text appears inside the square on hover */
+    .orbit-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(250, 250, 248, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+      border-radius: 10px;
+      z-index: 20; /* above center circle (z-index: 15) when visible */
+    }
+    .orbit-photo:hover { z-index: 20; } /* lift the whole card above center circle */
+    .orbit-photo:hover .orbit-photo-overlay { opacity: 1; }
+    .orbit-photo-overlay p {
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--charcoal);
+      margin: 0;
+    }
+
+    /* Right bio column */
+    .about-bio {
+      position: relative;
+      padding: 2rem 2rem 2rem 2rem;
+      display: flex; flex-direction: column; justify-content: center;
+      background: rgba(255,255,255,0.42);
+      backdrop-filter: blur(6px);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .about-bio > p {
+      font-size: 0.93rem; line-height: 1.88;
+      color: var(--charcoal); margin-bottom: 1.2rem;
+    }
+    .about-bio > p:last-of-type { margin-bottom: 0; }
+
+    .about-footer {
+      background: var(--sage);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 3rem; font-size: 0.84rem;
+      color: var(--charcoal); flex-wrap: wrap; gap: 0.5rem; font-weight: 600;
+    }
+    .about-footer a { color: var(--blue-dark); text-decoration: none; font-weight: 800; }
+    .about-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 820px) {
+      .about-inner { grid-template-columns: 1fr; padding: 1.5rem; }
+      .about-collage { max-width: 520px; }
+    }
+    @media (max-width: 500px) {
+      .about-collage { max-width: 95vw; }
+    }
+
+    /* ══════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════ */
+    .back-btn {
+      display: inline-flex; align-items: center;
+      color: var(--blue); font-size: 1.6rem; font-weight: 800;
+      cursor: pointer; background: none; border: none; padding: 0;
+      margin-bottom: 0.6rem; margin-top: -0.5rem;
+      text-decoration: none; line-height: 1;
+    }
+    .back-btn:hover { color: var(--blue-dark); }
+
+    /* TAGS */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.1rem; }
+    .tag {
+      background: var(--sky); color: var(--blue-dark);
+      font-size: 0.75rem; font-weight: 800; padding: 0.28rem 0.85rem;
+      border-radius: 50px;
+    }
+
+    /* ══════════════════════════════════
+       PROJECT DETAIL PAGES
+    ══════════════════════════════════ */
+    .project-detail-page { background: var(--cream); min-height: 100vh; }
+
+    /* Project Hero — matches screenshot */
+    .cvs-hero {
+      background: linear-gradient(135deg, #e6f3fc 0%, var(--sky) 100%);
+      padding: 3rem 5vw 3rem;
+    }
+    /* Green hero variant for product design projects */
+    .cvs-hero.hero-green {
+      background: linear-gradient(135deg, var(--sage-light) 0%, var(--sage) 100%);
+    }
+    .cvs-hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 0.75fr;
+      gap: 3rem; align-items: start;
+    }
+    .cvs-meta { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1rem; }
+    .cvs-meta span {
+      font-size: 0.75rem; color: var(--charcoal); font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .cvs-hero h1 {
+      font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900; line-height: 1.1; color: var(--charcoal); margin-bottom: 0.9rem;
+    }
+    .cvs-hero .lead {
+      font-size: 0.93rem; line-height: 1.75; color: var(--gray); max-width: 480px;
+      margin-bottom: 1.2rem;
+    }
+    /* Image card — white rounded box like screenshot */
+    .cvs-hero-img {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      min-height: 300px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cvs-hero-img img { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .cvs-hero-placeholder {
+      width: 100%; min-height: 300px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; font-size: 0.9rem; color: var(--gray);
+      text-align: center; padding: 2rem; gap: 0.5rem;
+    }
+    .cvs-hero-placeholder small { font-size: 0.75rem; opacity: 0.7; }
+
+    /* Final Prototypes section */
+    .final-prototypes {
+      background: #fff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--light-gray);
+      padding: 1.8rem 2rem;
+      margin: 2.5rem 0;
+    }
+    .final-prototypes h2 {
+      font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900;
+      color: var(--charcoal); margin-bottom: 1rem;
+      border-left: 4px solid var(--blue); padding-left: 0.75rem;
+    }
+    .final-prototypes .proto-blurb {
+      font-size: 0.93rem; line-height: 1.8; color: #444;
+      margin-bottom: 1.2rem;
+    }
+    .final-prototypes .proto-photos {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;
+    }
+    @media (max-width: 700px) {
+      .cvs-hero-inner { grid-template-columns: 1fr; }
+      .final-prototypes .proto-photos { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .project-body { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
+    .project-body h2 {
+      font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900;
+      margin: 2.5rem 0 1rem; color: var(--charcoal);
+      border-left: 4px solid var(--blue); padding-left: 0.75rem;
+    }
+    .project-body h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; margin: 1.8rem 0 0.6rem; }
+    .project-body p { font-size: 0.94rem; line-height: 1.85; color: #444; margin-bottom: 1rem; }
+    .project-body ul { margin: 0.5rem 0 1rem 1.5rem; }
+    .project-body ul li { font-size: 0.9rem; line-height: 1.7; color: #444; margin-bottom: 0.3rem; }
+
+    .problem-statement { background: #fff9e0; border-left: 4px solid var(--coral); border-radius: var(--radius-sm); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+    .problem-statement p { margin: 0.4rem 0 0; font-size: 0.92rem; }
+
+    .img-grid { display: grid; gap: 1rem; margin: 1.5rem 0; }
+    .img-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .img-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .img-grid img { width: 100%; border-radius: var(--radius-sm); object-fit: cover; display: block; }
+    .img-placeholder {
+      background: var(--light-gray); border-radius: var(--radius-sm);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; font-size: 0.8rem; color: var(--gray);
+      text-align: center; padding: 0; min-height: 180px; gap: 0.4rem;
+      overflow: hidden;
+    }
+    .img-placeholder img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      background: #fff;
+    }
+
+    .step-block {
+      background: var(--white); border: 1px solid var(--light-gray);
+      border-radius: var(--radius-md); padding: 1.5rem 1.75rem;
+      margin: 1.5rem 0; position: relative;
+    }
+    .step-block .step-num {
+      position: absolute; top: -14px; left: 1.5rem;
+      background: var(--blue); color: #fff;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.2rem 0.8rem; border-radius: 50px;
+    }
+    .step-block h3 { margin-top: 0.5rem; }
+
+    .prototype-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin: 1.5rem 0; }
+    .prototype-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: var(--radius-md); padding: 1.2rem; text-align: center; }
+    .prototype-card .proto-img { width: 100%; height: 140px; background: var(--sky); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--blue-dark); margin-bottom: 0.75rem; }
+    .prototype-card .proto-img img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-sm); }
+    .prototype-card h4 { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .prototype-card p { font-size: 0.78rem; color: var(--gray); line-height: 1.5; margin: 0; }
+
+    .eval-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.7rem; }
+    .eval-label { font-size: 0.82rem; min-width: 165px; color: var(--charcoal); font-weight: 700; }
+    .eval-bar-wrap { flex: 1; height: 8px; background: var(--light-gray); border-radius: 4px; position: relative; }
+    .eval-bar { height: 100%; border-radius: 4px; background: var(--blue); }
+    .eval-dot { position: absolute; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: #e74c3c; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #e74c3c; }
+
+    .report-cta {
+      background: rgba(212, 234, 247, 0.55);
+      border: 1px solid rgba(74,144,217,0.2);
+      color: var(--charcoal);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 2rem;
+      margin: 3rem 0 0; text-align: center;
+    }
+    .report-cta h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .report-cta p { font-size: 0.88rem; color: var(--gray); margin-bottom: 0; }
+    .report-cta a { display: inline-block; background: var(--blue); color: #fff; padding: 0.55rem 1.8rem; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.88rem; margin-top: 0.75rem; transition: background 0.2s; }
+    .report-cta a:hover { background: var(--blue-dark); }
+
+    /* Generic project detail */
+    .project-detail { max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+    .project-detail h1 { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; }
+    .project-detail .subtitle { font-size: 1rem; color: var(--gray); margin-bottom: 2rem; line-height: 1.7; }
+    .project-detail-img { width: 100%; height: 360px; border-radius: var(--radius-md); background: var(--light-gray); margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; color: var(--gray); font-size: 0.9rem; overflow: hidden; }
+    .project-detail-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-detail h2 { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem; }
+    .project-detail p { font-size: 0.94rem; line-height: 1.8; color: #444; margin-bottom: 1rem; }
+
+    /* ── CVS STAT STRIP ── */
+    .cvs-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin-bottom: 2.5rem;
+    }
+    .cvs-stat {
+      background: var(--sky); border-radius: var(--radius-md);
+      padding: 1.2rem; text-align: center;
+    }
+    .stat-num { display: block; font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: var(--blue-dark); }
+    .stat-label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--gray); margin-top: 0.2rem; }
+
+    /* ── CVS PROBLEM CALLOUT ── */
+    .cvs-problem {
+      display: flex; align-items: center; gap: 1.5rem;
+      background: #fff9e0; border-left: 5px solid var(--coral);
+      border-radius: var(--radius-md); padding: 1.4rem 1.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .cvs-problem-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .cvs-problem-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.3rem; }
+    .cvs-problem-text { font-size: 0.95rem; font-weight: 700; color: var(--charcoal); line-height: 1.6; margin: 0; }
+
+    /* ── CVS EXPANDABLE STEP CARDS ── */
+    .cvs-steps { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2.5rem; }
+    .cvs-step-card {
+      background: var(--white); border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-md); overflow: hidden;
+      cursor: pointer; transition: box-shadow 0.2s;
+    }
+    .cvs-step-card:hover { box-shadow: 0 4px 20px rgba(74,144,217,0.15); }
+    .cvs-step-card.open { border-color: var(--blue); }
+    .cvs-step-front {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.4rem;
+    }
+    .step-pill {
+      background: var(--blue); color: #fff;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.25rem 0.75rem;
+      border-radius: 50px; flex-shrink: 0;
+    }
+    .cvs-step-front h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 900; margin: 0; flex: 1; }
+    .cvs-step-front p { font-size: 0.8rem; color: var(--gray); margin: 0; flex: 2; }
+    .step-arrow { font-size: 1rem; color: var(--blue); transition: transform 0.25s; flex-shrink: 0; }
+    .cvs-step-card.open .step-arrow { transform: rotate(180deg); }
+    .cvs-step-detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 1.4rem;
+    }
+    .cvs-step-card.open .cvs-step-detail {
+      max-height: 1200px;
+      padding: 0 1.4rem 1.4rem;
+    }
+    .cvs-step-detail ul { margin: 0.5rem 0 0 1.2rem; }
+    .cvs-step-detail ul li { font-size: 0.86rem; line-height: 1.7; color: #444; }
+    .step-blurb {
+      font-size: 0.88rem; line-height: 1.75; color: var(--gray);
+      background: var(--cream); border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.75rem 1rem; margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    /* ── PROTOTYPE FLIP CARDS ── */
+    .proto-carousel {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem; margin-bottom: 2.5rem;
+    }
+    .proto-flip-card {
+      height: 260px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .proto-flip-inner {
+      position: relative; width: 100%; height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s ease;
+    }
+    .proto-flip-card:hover .proto-flip-inner { transform: rotateY(180deg); }
+    .proto-flip-front, .proto-flip-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .proto-flip-front {
+      background: var(--white);
+      border: 1.5px solid var(--light-gray);
+      gap: 0.5rem; text-align: center;
+    }
+    .proto-flip-front h4 { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 900; margin: 0; }
+    .proto-flip-front p { font-size: 0.78rem; color: var(--gray); margin: 0; }
+    .proto-img-box {
+      width: 100%; height: 160px; min-height: unset !important;
+      border-radius: var(--radius-sm); margin-bottom: 0.3rem;
+      font-size: 0.72rem;
+      overflow: hidden;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .proto-img-box img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      transform: scale(1.4);
+    }
+    .proto-flip-back {
+      background: var(--blue-dark);
+      transform: rotateY(180deg);
+      gap: 0.5rem; text-align: left; align-items: stretch;
+    }
+    .proto-flip-back h4 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 900; color: #fff; margin: 0 0 0.5rem; text-align: center; }
+    .proto-flip-back .eval-row { margin-bottom: 0.4rem; }
+    .proto-flip-back .eval-bar-wrap { background: rgba(255,255,255,0.2); }
+    .proto-flip-back .eval-bar { background: #fff; }
+    .eval-label-sm { font-size: 0.7rem; min-width: 110px; color: rgba(255,255,255,0.9); font-weight: 700; }
+
+    @media (max-width: 700px) {
+      .cvs-stats { grid-template-columns: repeat(2,1fr); }
+      .proto-carousel { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════
+  HOME PAGE
+══════════════════════ -->
+<div id="home-page" class="page active">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links">
+      <a href="#" onclick="showAllProjects();return false;">Projects</a>
+      <a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- BIG HERO PHOTO -->
+  <div class="hero-section">
+    
+      <img src="IMG_6174.jpg" alt="Gabriela Norwood">
+    <div class="hero-placeholder">
+      <span>📸</span>
+      <strong>Add your full-width photo here!</strong>
+      <small>Replace &lt;div class="hero-placeholder"&gt; with &lt;img src="your-photo.jpg"&gt;</small>
+    </div>
+
+    <!-- Text card overlaid on photo -->
+    <div class="hero-card">
+      <h1>Hi! My name is <span>Gabriela Norwood!</span></h1>
+      <p>I'm a dual degree <span style="color:var(--blue-dark);font-weight:800;">Manufacturing &amp; Design Engineering and Theatre</span> 4th year student from Northwestern University.</p>
+      <p>I believe <a href="#" onclick="showPage('home-page');setTimeout(()=>document.getElementById('journey-bubble').scrollIntoView({behavior:'smooth'}),50);return false;" style="color:inherit;text-decoration:none;font-weight:800;transition:color 0.2s;" onmouseover="this.style.color='var(--blue-dark)'" onmouseout="this.style.color='inherit'">curiosity and storytelling are the foundations of successful product design and development</a>.</p>
+      <p class="welcome">Welcome to my portfolio! 🎉</p>
+      <a href="#" class="hero-cta" onclick="showAllProjects();return false;">See My Work →</a>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <section id="journey" style="padding-bottom:4rem;">
+    <h2 class="section-title">My Journey</h2>
+    <div id="journey-bubble" style="max-width:780px;margin:0 auto 2.5rem;background:#fff;border-radius:var(--radius-lg);padding:1.8rem 2.5rem;box-shadow:0 8px 32px rgba(74,144,217,0.13),0 2px 8px rgba(0,0,0,0.06);border:1px solid rgba(74,144,217,0.12);">
+      <p style="text-align:center;font-size:0.88rem;line-height:1.8;color:var(--charcoal);margin:0;">As a theatre and engineering major, my ability to connect with the user and explore the emotional and behavioral landscape of their experiences with products and environments has enabled me to design products and experiences that solve the problems that provoke emotional reactions (anger, sadness, frustration, and more) and invite users to reframe mundane tasks into playful, fun experiences.</p>
+    </div>
+    <div class="timeline-wrapper" id="timelineWrapper">
+      <div class="timeline-bg"><div class="timeline-bg-inner"></div></div>
+      <div class="timeline-scroll">
+        <div class="timeline-line"></div>
+
+        <div class="timeline-group">
+          <div class="timeline-mid"><div class="year-label">2022</div></div>
+          <div class="timeline-events-col">
+            <div class="timeline-event above clickable" data-icon="⚙️" onclick="showPage('about-page')">Joined ASME Executive Board</div>
+            <div class="timeline-event below clickable" data-icon="🎓" onclick="showPage('about-page')">Start at Northwestern University</div>
+          </div>
+        </div>
+        <div class="timeline-group">
+          <div class="timeline-mid"><div class="year-label">2023</div></div>
+          <div class="timeline-events-col">
+            <div class="timeline-event above clickable" data-icon="🥯" onclick="showProject('bagel')">Bagel Slicer Whitespace Project</div>
+            <div class="timeline-event below clickable" data-icon="🏡" onclick="showProject('wagner')">Wagner Historical Farm House Project</div>
+          </div>
+        </div>
+        <div class="timeline-group">
+          <div class="timeline-mid"><div class="year-label">2024</div></div>
+          <div class="timeline-events-col">
+            <div class="timeline-event above clickable" data-icon="🏕️" onclick="showPage('about-page')">Engineering Summer Camp Instructor</div>
+            <div class="timeline-event below clickable" data-icon="🥚" onclick="showProject('egg')">Egg Manipulator Project</div>
+          </div>
+        </div>
+        <div class="timeline-group">
+          <div class="timeline-mid"><div class="year-label">2025</div></div>
+          <div class="timeline-events-col">
+            <div class="timeline-event above clickable" data-icon="💡" onclick="showProject('focal')">Summer Internship with Focal Point</div>
+            <div class="timeline-event below clickable" data-icon="🧪" onclick="showProject('cvs')">6-month Co-Op with Marks by SGS &amp; Co</div>
+          </div>
+        </div>
+        <div class="timeline-group">
+          <div class="timeline-mid"><div class="year-label">2026</div></div>
+          <div class="timeline-events-col">
+            <div class="timeline-event above clickable" data-icon="🐢" onclick="showProject('turtles')">Snapping Turtles Project</div>
+            <div class="timeline-event below clickable" data-icon="🎭" onclick="showProject('theatre1')">The Winter Guard Play Scenic Design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED PROJECTS -->
+  <section id="home-projects">
+    <h2 class="section-title">Selected Projects</h2>
+    <div class="home-proj-grid">
+      <div class="proj-card" onclick="showProject('cvs')">
+        <div class="proj-thumb"><img src="CVS Medicine Bottle.png" alt="CVS Liquid Medicine Bottle Prototype"></div>
+        <div class="proj-info"><h3>CVS Medicine Bottle</h3><p>Sustainable liquid medicine packaging that makes dosing safer and easier.</p></div>
+      </div>
+      <div class="proj-card" onclick="showProject('bagel')">
+        <div class="proj-thumb"><img src="Clamp & Cut Bagel.png" alt="Bagel"></div>
+        <div class="proj-info"><h3>Clamp &amp; Cut Bagels</h3><p>Hands-free bagel slicer for safe, even cuts every time.</p></div>
+      </div>
+      <div class="proj-card" onclick="showProject('turtles')">
+        <div class="proj-thumb"><img src="Two Snapping Turtles.png" alt="Turtles"></div>
+        <div class="proj-info"><h3>Snapping Turtles</h3><p>CNC-machined two-piece model using NX, CAD, and CAM.</p></div>
+      </div>
+    </div>
+    <a href="#" class="see-all-btn" onclick="showAllProjects();return false;">See All Projects →</a>
+  </section>
+
+  <footer id="site-footer">
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links">
+      <a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a>
+      <a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a>
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.78rem;opacity:0.45;">© 2026 Gabriela Norwood</p>
+  </footer>
+
+</div><!-- /home-page -->
+
+
+<!-- ══════════════════════
+  PROJECTS PAGE
+══════════════════════ -->
+<div id="all-projects-page" class="page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links">
+      <a href="#" onclick="showAllProjects();return false;" class="active-nav">Projects</a>
+      <a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a>
+    </div>
+  </nav>
+
+  <div class="projects-page-wrap">
+    <div class="projects-page-header">
+      <h1>Projects</h1>
+    </div>
+
+    <!-- Filter tabs (matching screenshot) -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProjects('all', this)">All</button>
+      <button class="filter-tab" onclick="filterProjects('mechanical', this)">Mechanical Engineering</button>
+      <button class="filter-tab" onclick="filterProjects('product', this)">Product Design</button>
+      <button class="filter-tab" onclick="filterProjects('storytelling', this)">Storytelling</button>
+      <button class="filter-tab" onclick="filterProjects('theatre', this)">Theatre</button>
+    </div>
+
+    <!-- 3-column rounded grid — each cell is a project photo -->
+    <div class="big-proj-grid" id="bigProjGrid">
+
+      <!-- Row 1 -->
+      <div class="big-proj-card" onclick="showProject('bagel')" data-cat="mechanical product">
+        <!--
+          Replace with: <img src="bagel-slicer.jpg" alt="Bagel Slicer">
+        -->
+        <img src="Clamp & Cut Bagel.png" alt="Bagel Slicer">
+        <div class="card-overlay"><div class="card-overlay-text">Clamp &amp; Cut Bagels</div></div>
+      </div>
+
+      <div class="big-proj-card" onclick="showProject('cvs')" data-cat="product storytelling">
+        <!-- <img src="cvs-bottle.jpg" alt="CVS Bottle"> -->
+        <img src="CVS Medicine Bottle.png" alt="New CVS Medicine Bottle Prototype">
+        <div class="card-overlay"><div class="card-overlay-text">CVS Medicine Bottle</div></div>
+      </div>
+
+      <div class="big-proj-card" onclick="showProject('turtles')" data-cat="mechanical">
+        <!-- <img src="snapping-turtles.jpg" alt="Snapping Turtles"> -->
+        <img src="Two Snapping Turtles.png" alt="Snapping Turtles">
+        <div class="card-overlay"><div class="card-overlay-text">Snapping Turtles</div></div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="big-proj-card" onclick="showProject('wagner')" data-cat="storytelling">
+        <img src="Wagner Farm House Interior Simulation.png" alt="Wagner Farm House">
+        <div class="card-empty"><span>🏡</span><small>Wagner Farm House<br><em>Add your photo</em></small></div>
+        <div class="card-overlay"><div class="card-overlay-text">Wagner Farm House</div></div>
+      </div>
+
+      <div class="big-proj-card" onclick="showProject('focal')" data-cat="product mechanical">
+        <img src="Skydome Exterior.png" alt="Focal Point">
+        <div class="card-empty"><span>💡</span><small>Focal Point<br><em>Add your photo</em></small></div>
+        <div class="card-overlay"><div class="card-overlay-text">Focal Point Internship</div></div>
+      </div>
+
+      <div class="big-proj-card" onclick="showProject('theatre1')" data-cat="theatre storytelling">
+        <img src="Opening Card Theatre.jpg" alt="Image of Theatre Set">
+        <div class="card-overlay"><div class="card-overlay-text">Winter Guard Play</div></div>
+      </div>
+
+    </div><!-- /big-proj-grid -->
+  </div>
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div><!-- /all-projects-page -->
+
+
+<!-- ══════════════════════
+  ABOUT ME PAGE
+══════════════════════ -->
+<div id="about-page" class="page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links">
+      <a href="#" onclick="showAllProjects();return false;">Projects</a>
+      <a href="#" onclick="showPage('about-page');return false;" class="active-nav">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a>
+    </div>
+  </nav>
+
+  <div class="about-page-wrap">
+    <p class="about-page-label">About Me</p>
+
+    <div class="about-inner">
+
+      <!-- LEFT: Circular orbit collage -->
+      <div class="about-collage">
+
+        <!-- ── CENTER PORTRAIT ── -->
+        <div class="orbit-center">
+          
+          <img src="IMG_6174.jpg" alt="Gabriela Norwood">
+          
+          <div class="photo-placeholder">
+            📸<br><small>Your main portrait<br>Replace with<br>&lt;img src="portrait.jpg"&gt;</small>
+          </div>
+          <!-- Bio text overlay is outside this element, see #bio-fullscreen below -->
+        </div>
+
+        <!-- ── ORBIT PHOTOS (8 surrounding) ── -->
+        <!-- 12 o'clock — top center -->
+        <div class="orbit-photo op-0">
+          <img src="Pageants.jpg" alt="Pageant Competition">
+          <div class="photo-placeholder" style="background:#c8d8c0;">📸<br><small>Photo 1</small></div>
+          <div class="orbit-photo-overlay"><p>Pre-interview competition photo at the Miss NorthernSuburbs Illinois America Pageant. Pageantry introduced me to service and taught me how to articulate myself in interviews, give public speeches with confidence, and have empowered me to accomplish any ambitious goal I set for myself.</p></div>
+        </div>
+
+        <!-- 1:30 — top right -->
+        <div class="orbit-photo op-1">
+          <img src="Black Cookout.jpg" alt="Smiling at the Intercollegiate Black Cookout at UChicago!">
+          <div class="photo-placeholder" style="background:#e8cfc0;">📸<br><small>Photo 2</small></div>
+          <div class="orbit-photo-overlay"><p>Smiling at the intercollegiate black cookout with my friends at UChicago in 2025!💚</p></div>
+        </div>
+
+        <!-- 3 o'clock — right -->
+        <div class="orbit-photo op-2">
+          <img src="Volunteering.jpg" alt="Greater ChicagoFoodDepositoryVolunteering">
+          <div class="photo-placeholder" style="background:#a8c9a0;">📸<br><small>Photo 3</small></div>
+          <div class="orbit-photo-overlay"><p>Volunteering at the Greater Chicago Food Depository — giving back to the city that shapes and supports me! 🍽️</p></div>
+        </div>
+
+        <!-- 4:30 — bottom right -->
+        <div class="orbit-photo op-3">
+          <img src="Poland.jpg" alt="Poznan, Poland"> 
+          <div class="photo-placeholder" style="background:#b8c8d4;">📸<br><small>Photo 4</small></div>
+          <div class="orbit-photo-overlay"><p> Travel photo from my time in Poznan, Poland! I love to travel, and my international experiences have made me more open-minded, empathetic, and understanding of different life experiences.✈️</p></div>
+        </div>
+
+        <!-- 6 o'clock — bottom center -->
+        <div class="orbit-photo op-4">
+          <img src="Laser Cutting with Wagner Historical Farm Prototype.png" alt="Laser Cutting">
+          <div class="photo-placeholder" style="background:#d4c8b8;">📸<br><small>Photo 5</small></div>
+          <div class="orbit-photo-overlay"><p> Laser Cutting one of the Wagner Historical Farm prototypes for user testing with kids! 🛠️</p></div>
+        </div>
+
+        <!-- 7:30 — bottom left -->
+        <div class="orbit-photo op-5">
+          <img src="Theatre.jpg" alt="Theatre">
+          <div class="photo-placeholder" style="background:#c8c0d4;">📸<br><small>Photo 6</small></div>
+          <div class="orbit-photo-overlay"><p>On stage in my first Northwestern Wirtz Theatre production — Theatre taught me how to connect to stories and experiences that aren't my own and engage hundreds of people using storytelling. Because of theatre, I'm able to design with empathy. 🎭</p></div>
+        </div>
+
+        <!-- 9 o'clock — left -->
+        <div class="orbit-photo op-6">
+          <img src="Gabriela Norwood_Candid 3.jpg" alt="Edinburgh, Scotland">
+          <div class="photo-placeholder" style="background:#d0c8bc;">📸<br><small>Photo 7</small></div>
+          <div class="orbit-photo-overlay"><p>My first collegiate study abroad experience in Edinburgh, Scotland. Studying abroad taught me resilience, cultural humility, and adaptability! 🌆</p></div>
+        </div>
+
+        <!-- 10:30 — top left -->
+        <div class="orbit-photo op-7">
+          <img src="School spirit.jpg" alt="School Spirit!">
+          <div class="photo-placeholder" style="background:#c4d8c8;">📸<br><small>Photo 8</small></div>
+          <div class="orbit-photo-overlay"><p>I love sports and cheering on my team (whatever team that may be)! I even did color guard my freshman year! One of my favorite teams to cheer for is Northwestern! Go Cats! </p></div>
+        </div>
+
+      </div><!-- /about-collage -->
+
+    </div><!-- /about-inner -->
+
+  </div>
+
+  <!-- Full-screen bio overlay — triggered by hovering center circle -->
+  <div id="bio-fullscreen" class="bio-fullscreen">
+    <p>I'm incredibly passionate about combining my technical skills, creative problem solving mindset, and storytelling ability to design products that give users — especially kids — meaningful and fun experiences. I challenge myself to design and build solutions for problems that don't have definitive answers, and I use storytelling to always find and design for the root problems in human experiences.</p>
+  </div>
+
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+
+</div><!-- /about-page -->
+
+
+<!-- ══════════════════════
+  CVS PROJECT PAGE
+══════════════════════ -->
+<div id="project-cvs" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links">
+      <a href="#" onclick="showAllProjects();return false;">Projects</a>
+      <a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Client: Marks by SGS &amp; Co / CVS</span>
+          <span>Timeline: 16 weeks · March 2025 – June 2025</span>
+        </div>
+        <h1>Liquid Medicine Bottle Dosing</h1>
+        <p class="lead">Redesigning CVS liquid medicine packaging to make dosing safer, more accurate, and more sustainable — especially for parents with young children.</p>
+        <div class="tag-list">
+          <span class="tag">Product Design</span><span class="tag">Packaging</span>
+          <span class="tag">Sustainability</span><span class="tag">SolidWorks</span>
+          <span class="tag">3D Printing (J55)</span><span class="tag">User Research</span>
+        </div>
+      </div>
+      <div class="cvs-hero-img">
+        <img src="target-brand-cold-flu-medicine.jpg" alt="CVS Prototype">
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+
+    <!-- STAT STRIP -->
+    <div class="cvs-stats">
+      <div class="cvs-stat">
+        <span class="stat-num">8</span>
+        <span class="stat-label">CVS stores visited</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">5</span>
+        <span class="stat-label">high-fidelity prototypes</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">final concepts</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">J55</span>
+        <span class="stat-label">full-color 3D printer</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM STATEMENT — visual callout -->
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">💊</div>
+      <div>
+        <p class="cvs-problem-label">The Challenge</p>
+        <p class="cvs-problem-text">Parents dosing liquid medicine for their children face dosing inaccuracies, lost cups, hygiene issues, and non-recyclable waste — every single time.</p>
+      </div>
+    </div>
+
+    <!-- PROCESS STEPS — clickable cards that flip to reveal detail -->
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+
+    <div class="cvs-steps">
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front">
+          <span class="step-pill">Step 1</span>
+          <h3>Discover</h3>
+          <p>Visited 8 CVS stores, mapped 6 user journey scenarios, and identified liquid medicine dosing as a high-impact opportunity space through consumer research and social media analysis.</p>
+          <span class="step-arrow">﹀</span>
+        </div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="Opportunity Areas Pain Points.png"></div>
+            <div class="img-placeholder" style="min-height:140px;"><img src="CVS journey map.png"></div>
+          </div>
+          <p class="step-blurb">I visited eight CVS stores in Evanston and Chicago to document real consumer pain points — from leaking makeup wipe pouches to ineffective store layouts. I also mined Reddit, TikTok, and Twitter for complaints. Through this research and a personal experience needing Benadryl without an accurate dosing cup, I identified liquid medicine dosing as my opportunity space. A key finding: 3 out of 4 Americans still rely on kitchen teaspoons to measure doses, and researchers confirm that dosing cup errors increase significantly compared to oral syringes. My primary user persona: parents dosing liquid medicine for young children.</p>
+          <ul>
+            <li>Visited 8 CVS stores in Evanston &amp; Chicago</li>
+            <li>Searched Reddit, TikTok &amp; Twitter for complaints</li>
+            <li>Built 6 journey maps for key dosing scenarios</li>
+            <li>Primary persona: parents with young children</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front">
+          <span class="step-pill">Step 2</span>
+          <h3>Define</h3>
+          <p>Benchmarked the existing CVS dosage cup against four evaluation criteria to pinpoint the unattached cup as the root cause of dosing inaccuracy, hygiene risk, and unsustainable waste.</p>
+          <span class="step-arrow">﹀</span>
+        </div>
+        <div class="cvs-step-detail">
+          <div style="background:#fff;border:1px solid var(--light-gray);border-radius:var(--radius-sm);padding:1rem 1.5rem;margin-bottom:1rem;">
+            <div class="eval-row"><span class="eval-label">Accurate Dosing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:30%"></div><div class="eval-dot" style="left:26%"></div></div></div>
+            <div class="eval-row"><span class="eval-label">Cleaning &amp; Storage</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:22%"></div><div class="eval-dot" style="left:18%"></div></div></div>
+            <div class="eval-row"><span class="eval-label">Ease of Use</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:48%"></div><div class="eval-dot" style="left:44%"></div></div></div>
+            <div class="eval-row"><span class="eval-label">Ease of Manufacturing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:72%"></div><div class="eval-dot" style="left:68%"></div></div></div>
+            <p style="font-size:0.72rem;color:var(--gray);margin:0.5rem 0 0;">🔴 = current CVS benchmark &nbsp;|&nbsp; scale: – to +</p>
+          </div>
+          <div class="problem-statement" style="margin:0 0 1rem;">
+            <strong>Problem Statement:</strong>
+            <p>Unattached dosage cups create dosing inaccuracies, hygiene issues, and non-recyclable waste — making medication routines frustrating and unsafe, especially for parents.</p>
+          </div>
+          <p class="step-blurb">I benchmarked the existing CVS Health Children's Allergy Relief bottle against four evaluation criteria — accurate dosing, cleaning & storage, ease of use, and ease of manufacturing. The current dosage cup sits loose on the bottle after first use, relies entirely on the user's visual judgment to fill accurately, and is made of non-recyclable plastic. After mapping six user journey scenarios (opening & first dispense, wash & store, transportation, and disposal), the core problem became clear: the unattached dosage cup is the root cause of inaccurate dosing, hygiene risk, and unnecessary waste.</p>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front">
+          <span class="step-pill">Step 3</span>
+          <h3>Ideate</h3>
+          <p>Explored 16+ packaging formats across the liquid consumables market and mapped four distinct concepts onto a 2×2 framework to balance innovation with manufacturing feasibility.</p>
+          <span class="step-arrow">﹀</span>
+        </div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:160px;"><img src="Concept Exploration CVS - Brainstorm Drawings.png"></div>
+            <div class="img-placeholder" style="min-height:160px;"><img src="Concept Framework.png"></div>
+          </div>
+          <p class="step-blurb">I explored a wide range of packaging formats for inspiration — squeezable pouches, pull-and-squeeze bottles, spray and dropper systems, stackable containers, and even candy delivery formats like dissolving strips. Using a 2×2 concept framework mapping Product Format (existing → new) against Packaging Format (familiar category norms → differentiated), I placed four concepts: Toupee (existing packaging, existing product), Python (new packaging, existing product), Surgeon (new packaging, existing product), and Wildcard (new packaging, new product format — popping medicine capsules inspired by boba).</p>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front">
+          <span class="step-pill">Step 4</span>
+          <h3>Prototype</h3>
+          <p>Developed and 3D printed four proof-of-concept prototypes — ranging from an incremental cap redesign to a completely new seaweed-based capsule format — each evaluated against the same benchmark criteria.</p>
+        </div>
+        <div class="cvs-step-detail">
+          <div class="img-placeholder" style="min-height:160px;margin-bottom:1rem;"><img src="User Experience Syringe.png"></div>
+          <p class="step-blurb">I 3D printed proof-of-concept prototypes for all four concepts using SolidWorks and a J55 full-color printer. Toupee modifies the bottle cap ridges for a snug dosage cup fit, keeping one manufacturing change. Python integrates the dosage cup into the bottle via a straw canal — the user squeezes medicine up and out. Surgeon follows expert recommendation by adding an integrated syringe into the bottle neck — turn the cap to set the dose, pull to fill, push to dispense. Wildcard is the most innovative: liquid medicine held in seaweed-based popping capsules (inspired by boba), dispensed one capsule at a time from a two-chamber CRC-locked container — eliminating the dosage cup entirely.</p>
+        </div>
+      </div>
+
+    </div><!-- /cvs-steps -->
+
+    <!-- PROTOTYPE CAROUSEL -->
+    <h2 style="margin-top:3rem;">Final Prototypes</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.2rem;margin-top:-0.5rem;">Hover each concept to see its evaluation ↓</p>
+
+    <div class="proto-carousel">
+
+      <div class="proto-flip-card">
+        <div class="proto-flip-inner">
+          <div class="proto-flip-front">
+            <div class="img-placeholder proto-img-box"><img src="Toupee.png"></div>
+            <h4>Concept 1: Toupee</h4>
+            <p>Integrated flip-top dosing</p>
+          </div>
+          <div class="proto-flip-back">
+            <h4>Toupee</h4>
+            <div class="eval-row"><span class="eval-label-sm">Accurate Dosing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:70%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Ease of Use</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:65%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Manufacturing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:60%"></div></div></div>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.75);margin-top:0.5rem;">Familiar format with improved accuracy</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proto-flip-card">
+        <div class="proto-flip-inner">
+          <div class="proto-flip-front">
+            <div class="img-placeholder proto-img-box"><img src="Python.png"></div>
+            <h4>Concept 2: Python</h4>
+            <p>Squeeze-and-dose cup</p>
+          </div>
+          <div class="proto-flip-back">
+            <h4>Python</h4>
+            <div class="eval-row"><span class="eval-label-sm">Accurate Dosing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:80%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Ease of Use</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:75%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Manufacturing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:45%"></div></div></div>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.75);margin-top:0.5rem;">Eliminates the loose dosage cup entirely</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proto-flip-card">
+        <div class="proto-flip-inner">
+          <div class="proto-flip-front">
+            <div class="img-placeholder proto-img-box"><img src="CVS Medicine Bottle.png"></div>
+            <h4>Concept 3: Surgeon</h4>
+            <p>Syringe-pull dispensing cap</p>
+          </div>
+          <div class="proto-flip-back">
+            <h4>Surgeon</h4>
+            <div class="eval-row"><span class="eval-label-sm">Accurate Dosing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:90%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Ease of Use</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:70%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Manufacturing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:50%"></div></div></div>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.75);margin-top:0.5rem;">Maximum precision — best for parents</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proto-flip-card">
+        <div class="proto-flip-inner">
+          <div class="proto-flip-front">
+            <div class="img-placeholder proto-img-box"><img src="Wildcard.png"></div>
+            <h4>Concept 4: Wildcard</h4>
+            <p>Twist-measure integrated cap</p>
+          </div>
+          <div class="proto-flip-back">
+            <h4>Wildcard</h4>
+            <div class="eval-row"><span class="eval-label-sm">Accurate Dosing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:85%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Ease of Use</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:80%"></div></div></div>
+            <div class="eval-row"><span class="eval-label-sm">Manufacturing</span><div class="eval-bar-wrap"><div class="eval-bar" style="width:40%"></div></div></div>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.75);margin-top:0.5rem;">High accuracy + compact storage</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /proto-carousel -->
+
+    <!-- FINAL PROTOTYPES -->
+    <div class="final-prototypes">
+      <p class="proto-blurb">Across 4 concepts and 5 high-fidelity SolidWorks prototypes, this project demonstrated how reframing a mundane daily task — dosing liquid medicine — through the lens of user behavior and sustainability can yield solutions that range from incremental manufacturing improvements to entirely new product formats.</p>
+    </div>
+
+    <!-- REPORT CTA -->
+    <div class="report-cta">
+      <h3>See the Full Report 📄</h3>
+      <p>Research, journey maps, benchmarking &amp; full prototype evaluation.</p>
+      <a href="Liquid Medicine Dosing - Personal Project Final Presentation 06052025 (2).pdf" target="_blank">Read the Final Report →</a>
+    </div>
+
+  </div><!-- /project-body -->
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div><!-- /project-cvs -->
+
+
+<!-- ══════════════════════
+  BAGEL PAGE
+══════════════════════ -->
+<div id="project-bagel" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Client: Northwestern University Community</span>
+          <span>Timeline: 10 weeks · Spring 2023</span>
+        </div>
+        <h1>Clamp &amp; Cut Bagels</h1>
+        <p class="lead">A self-centering bagel slicer that delivers a safe, even, crumb-minimal cut — no exposed blades, no crushed bagels, no fingers near the blade.</p>
+        <div class="tag-list">
+          <span class="tag">Mechanical Design</span><span class="tag">Benchmarking & Journey Mapping</span>
+          <span class="tag">3D Printing</span><span class="tag">Rapid Prototyping</span>
+          <span class="tag">Patent Research</span>
+        </div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder"><img src="Clamp & Cut Bagel.png"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+
+    <!-- STAT STRIP -->
+    <div class="cvs-stats">
+      <div class="cvs-stat">
+        <span class="stat-num">175+</span>
+        <span class="stat-label">problems surveyed</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">team members</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">mockup designs tested</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">6</span>
+        <span class="stat-label">user tests conducted</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">🥯</div>
+      <div>
+        <p class="cvs-problem-label">The Challenge</p>
+        <p class="cvs-problem-text">Northwestern dining hall bagel cutters crush, tear, and unevenly slice bagels — and pose safety risks since exposed serrated knives aren't allowed. Students needed a solution that was safe, clean, easy to use, and actually worked.</p>
+      </div>
+    </div>
+
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+
+    <div class="cvs-steps">
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Discover</h3><p>Surveys · Need-finding · Problem selection</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <p class="step-blurb">We surveyed 61 people ranging from age 18–75 and gathered 175+ problems. After multiple rounds of coding and interviews, we narrowed down to two finalists — an inconsistent bagel slicer and uneven dining tables. Patent research and benchmarking at Sargent Dining Hall confirmed the bagel slicer had the most room for innovation.</p>
+          <ul>
+            <li>61 survey respondents, 175+ problems collected</li>
+            <li>Three coding rounds to narrow to top 5, then top 2</li>
+            <li>Interviews with Northwestern students confirmed the bagel problem was felt regularly</li>
+            <li>Benchmarked guillotine slicer at Sargent Dining Hall — consistent crushing and uneven cuts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Define</h3><p>Requirements · Benchmarking · User needs</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="Bagel SLicer Benchmark.png"></div>
+            <div class="img-placeholder" style="min-height:140px;"><img src="Bagel Slicer Project Decomposition.png"></div>
+          </div>
+          <p class="step-blurb">We benchmarked three existing products — a cheese slicer, handheld slicer, and guillotine slicer — against a detailed requirements matrix. The guillotine scored a 2/5 on crush level and 1/5 on crumb cleanliness. The handheld slicer performed best but still left fingers near the blade. These gaps defined our four core requirements: performance, safety, cleanliness, and ease of use.</p>
+          <div class="problem-statement" style="margin-top:1rem;">
+            <strong>Key Requirements:</strong>
+            <p>50/50 even slice (allowable: 65/35) · No exposed or removable blade · User's fingers never near the blade · Crumb level 4/5 or better · Intuitive with zero learning curve</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>Ideate</h3><p>Brainstorming · Patent research · Concept development</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="Journey Map Bagel SLicer.png"></div>
+            <div class="img-placeholder" style="min-height:140px;"><img src="Patent Research Bagel Slicer.png"></div>
+          </div>
+          <p class="step-blurb">We researched six patents spanning 1987–2018 to understand what existed and where the gaps were. A key insight came from a mobile phone car mount patent — its spring-loaded clamp-and-release mechanism became the foundation of our centering system. Two mockup concepts emerged: a clamping mechanism (Mockup 1) and a rotating handle mechanism (Mockup 2).</p>
+          <ul>
+            <li>6 patents reviewed across multiple decades</li>
+            <li>Phone mount clamp (CN208257882U) inspired the centering mechanism</li>
+            <li>Serrated blade confirmed optimal via prior art — guillotine flat blade found inferior</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Prototype &amp; Test</h3><p>Two mockups · 6 user tests · Iterative refinement</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:90px;"> <img src="Clamp & Cut Mockup 1 (2).png"></div>
+            <div class="img-placeholder" style="min-height:90px;"><img src="Clamp & Cut Mockup 2.png"></div>
+          </div>
+          <p class="step-blurb">Three users tested each mockup without instructions — we encouraged them to think aloud. The rotating handle consistently failed to cut through the bagel (70% tearing, crush level 1/5). The clamping mechanism held the bagel independently, achieved 40–45% : 55–60% slices, and scored 4/5 on crush level. Users unanimously preferred Mockup 1. It became the basis for the final Clamp &amp; Cut prototype.</p>
+          <ul>
+            <li>Mockup 2 (rotating): 70% tearing rate, did not cut through in 2 of 3 tests</li>
+            <li>Mockup 1 (clamping): held bagel independently, 4/5 crush level, no exposed blade</li>
+            <li>4 additional external users tested final benchmarks for comparative data</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /cvs-steps -->
+
+    <h2>Final Prototypes</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">The Clamp &amp; Cut</p>
+    <div class="final-prototypes">
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-md);margin-bottom:1.2rem;">
+        <iframe
+          src="https://www.youtube.com/embed/6YbvQFJaU9U"
+          title="Introducing the Clamp &amp; Cut"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius-md);">
+        </iframe>
+      </div>
+      <p class="proto-blurb">The final Clamp &amp; Cut features three integrated components: a housing with 54°-angled planes to stabilize any bagel size, a 7" stainless steel serrated blade with a plastic guard and rubber-coated handle, and a phone-mount-inspired spring clamp that centers the bagel and releases with a single button press. The blade is contained within the housing — it cannot be removed — and the user's fingers never enter the cutting path. The design was 3D printed and satisfies all four core requirements: even performance, safety, cleanliness, and intuitive ease of use.</p>
+    </div>
+
+    <div class="report-cta">
+      <h3>See the Final Report 📄</h3>
+      <p>Full research, user testing data, benchmarking &amp; prototype documentation.</p>
+      <a href="#" onclick="alert('Add your report link here');return false;">Read the Final Report →</a>
+    </div>
+
+  </div><!-- /project-body -->
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════
+  TURTLES PAGE
+══════════════════════ -->
+<div id="project-turtles" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Northwestern University · MFG &amp; Design Engineering</span>
+          <span>Timeline: 2026</span>
+        </div>
+        <h1>Snapping Turtles</h1>
+        <p class="lead">Designing and manufacturing a two-piece injection-molded plastic turtle — from concept and CAD through mold design, CNC machining, and final production.</p>
+        <div class="tag-list">
+          <span class="tag">CAD / NX</span><span class="tag">CAM</span>
+          <span class="tag">CNC Machining</span><span class="tag">Injection Molding</span>
+          <span class="tag">DFM / DFA</span><span class="tag">Metrology</span>
+          <span class="tag">Team Project</span>
+        </div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder">📸 Add hero image<br><small>&lt;img src="turtles-hero.jpg"&gt;</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+
+    <!-- STAT STRIP -->
+    <div class="cvs-stats">
+      <div class="cvs-stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">CNC mold halves machined</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">~11hrs</span>
+        <span class="stat-label">total CNC machining time</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">20</span>
+        <span class="stat-label">parts measured for metrology</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">450°F</span>
+        <span class="stat-label">injection barrel temperature</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">🐢</div>
+      <div>
+        <p class="cvs-problem-label">The Challenge</p>
+        <p class="cvs-problem-text">Design and manufacture a plastic injection-molded part entirely from concept to production — navigating the real constraints of three-axis CNC milling, injection molding DFM, press-fit assembly, and statistical process control, all within a single quarter.</p>
+      </div>
+    </div>
+
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+
+    <div class="cvs-steps">
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Concept &amp; CAD Design</h3><p>Sketching · Part geometry · DFM constraints</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="Initial Turtle Drawing.png"></div>
+            <div class="img-placeholder" style="min-height:140px;"><img src="initial turtle drawing side.png"></div>
+          </div>
+          <p class="step-blurb">We chose a small plastic turtle because its shell, head, and leg geometry offered enough complexity to incorporate multiple manufacturing features while remaining within the constraints of a three-axis CNC mill and injection molding process. The turtle was split into two halves — top and bottom — designed to be molded separately and assembled via press-fit connections. Several design iterations were made: the eyes were removed (overhang couldn't be machined on a 3-axis mill), the tail was eliminated to reduce mold complexity, and the shell was simplified to reduce machining time. A nominal wall thickness of 1/16", 1° draft angles on all vertical faces, and fillets throughout were applied to improve moldability, reduce sink marks, and ensure clean ejection.</p>
+          <ul>
+            <li>1/16" nominal wall thickness to minimize sink marks and warpage</li>
+            <li>1° draft angles on all vertical faces for clean mold ejection</li>
+            <li>Eyes and tail removed — unmachineable overhangs on 3-axis mill</li>
+            <li>Press-fit assembly used; snap fits removed due to modeling and machining complexity</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Mold Design</h3><p>Parting line · Runner system · Shrinkage compensation</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="TUrtle on thing sketches.PNG"></div>
+            
+          </div>
+          <p class="step-blurb">The parting line was placed along the natural edge of the shell — the most symmetrical orientation — to avoid undercuts and allow all features to be accessed via standard end milling. The part was oriented lengthwise in the mold blank to maximize clearance from the sprue and prevent flash. Cavity dimensions were adjusted to account for plastic shrinkage. The runner system used opposing entries — one into the turtle's head, one into the opposite end of the shell — to equalize fill time and promote uniform flow. A circular 0.25" diameter runner was selected for efficient flow and low pressure loss.</p>
+          <ul>
+            <li>Parting line at natural shell edge — no undercuts, clean separation</li>
+            <li>Cavity dimensions scaled up to compensate for shrinkage</li>
+            <li>Opposing runner entrances (head &amp; tail end) to equalize fill time</li>
+            <li>Circular 0.25" runner — optimal flow, minimal pressure loss</li>
+            <li>Runner placed 0.030" from part geometry to allow manual gate filing</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>CNC Machining</h3><p>CAM programming · 4 mold halves · ~11 hours total</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="Turtle Molds.PNG"></div>
+            
+          </div>
+          <p class="step-blurb">Four separate molds were CNC machined — core and cavity for both the top and bottom turtle halves — totaling approximately 11 hours of machining time. Each mold used a sequence of adaptive roughing, floor/wall finishing, area milling, and planar operations with tools ranging from 0.5" end mills down to 0.0625" ball mills for fine surface detail. A key mid-project challenge: the original #51 drill bit (0.0595") for the press-fit holes snapped during the first machining run due to its fragility. The feature was redesigned — hole diameter increased ~60% to a 3/32" (0.0938") drill, and the mating pin upsized to 0.096" — allowing successful completion. Chatter during machining also slightly damaged the small lips around the dowel pin holes, which ultimately affected assembly quality.</p>
+          <ul>
+            <li>Bottom core: 2h 35min · Bottom cavity: 3h 21min</li>
+            <li>Top core: 2h 27min · Top cavity: 2h 32min</li>
+            <li>#51 drill bit broke mid-run — redesigned to 3/32" drill, 0.096" pin</li>
+            <li>Chatter damaged press-fit lip geometry — impacted final assembly fit</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Injection Molding &amp; Metrology</h3><p>Process tuning · 20 parts · Statistical process control</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;"><img src="Stack of turtles.PNG"></div>
+           
+          </div>
+          <p class="step-blurb">Barrel and nozzle temperatures were set to 450°F, though the nozzle fluctuated around 400°F throughout. Injection times of 5–10 seconds were tuned based on cavity volume and live nozzle temperature. Short shots emerged mid-run — traced to polymer pellet buildup in the chamber. Cleaning every 3–4 cycles resolved the issue. Part ejection by pulling the legs caused slight upward bending of the thin leg features, complicating press-fit assembly. Despite these challenges, the final parts had good surface finish with no visible sink marks or warpage. A metrology study on the overall width (nominal 1.80") across 20 top and 20 bottom parts revealed process instability — multiple out-of-control conditions were identified on both run charts — attributed to nozzle temperature variation, pellet buildup, and multi-operator measurement variability.</p>
+          <ul>
+            <li>Spec limits: 1.790"–1.810" width · Tolerance: ±0.010"</li>
+            <li>Top halves: 3 of 20 outside spec limits · Bottom halves: 16 of 20 outside spec limits</li>
+            <li>Bottom parts consistently narrower — attributed to mold geometry differences and process drift over the session</li>
+            <li>Pellet chamber cleaning every 3–4 cycles eliminated short shots</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /cvs-steps -->
+
+    <h2>Final Prototypes</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">The Snapping Turtle</p>
+    <div class="final-prototypes">
+      <div class="proto-photos">
+        <div class="img-placeholder" style="min-height:180px;"><img src="Two Snapping Turtles.png"></div>
+     
+      </div>
+      <p class="proto-blurb">The final Snapping Turtle is a two-piece injection-molded plastic assembly connected via press-fit pins and holes. The top shell features a layered geometry and longer head; the bottom half provides a flat base and matching leg geometry. Both halves showed good surface finish and minimal defects. The metrology study revealed process instability — particularly in the bottom halves — highlighting the impact of nozzle temperature variation, pellet buildup, and ejection deformation on dimensional accuracy. Key takeaways: early investment in robust press-fit geometry, better ejection features, and tighter injection parameter control would meaningfully improve part consistency in future production runs.</p>
+    </div>
+
+    <div class="report-cta">
+      <h3>See the Final Report 📄</h3>
+      <p>Full design documentation, CAM operations, metrology study &amp; manufacturing reflections.</p>
+      <a href="#" onclick="alert('Add your report link here');return false;">Read the Final Report →</a>
+    </div>
+
+  </div><!-- /project-body -->
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════
+  EGG PAGE
+══════════════════════ -->
+<div id="project-egg" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Northwestern University · ME240</span>
+          <span>Introduction to Mechanical Design and Manufacturing</span>
+        </div>
+        <h1>Egg Manipulator 🥚</h1>
+        <p class="lead">Designing, iterating, and 3D printing a robot arm end effector capable of picking up and moving a raw egg — tested live on a preprogrammed robot arm.</p>
+        <div class="tag-list">
+          <span class="tag">Mechanical Design</span><span class="tag">3D Printing</span>
+          <span class="tag">FEA Analysis</span><span class="tag">Iteration</span>
+          <span class="tag">Robot End Effector</span><span class="tag">Team Project</span>
+        </div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder">📸 Add hero image<br><small>&lt;img src="egg-hero.jpg"&gt;</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+
+    <!-- STAT STRIP -->
+    <div class="cvs-stats">
+      <div class="cvs-stat">
+        <span class="stat-num">10</span>
+        <span class="stat-label">lab iterations</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">part components</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">FEA</span>
+        <span class="stat-label">+ physical testing</span>
+      </div>
+      <div class="cvs-stat">
+        <span class="stat-num">1mm</span>
+        <span class="stat-label">displacement test target</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">🥚</div>
+      <div>
+        <p class="cvs-problem-label">The Challenge</p>
+        <p class="cvs-problem-text">Design and 3D print a two-piece end effector that mounts to a robot arm via dovetail connector and successfully picks up and moves a raw egg through a preprogrammed routine — without breaking it.</p>
+      </div>
+    </div>
+
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+
+    <div class="cvs-steps">
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Design Approach</h3><p>Concept · Hand calculations · Initial geometry</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;">📸 Initial design sketch<br><small>&lt;img src="egg-sketch.jpg"&gt;</small></div>
+            <div class="img-placeholder" style="min-height:140px;">📸 Early CAD model<br><small>&lt;img src="egg-cad-early.jpg"&gt;</small></div>
+          </div>
+          <p class="step-blurb">The end effector was designed as two components — a top piece and a bottom piece — connected via pinned joints to allow the gripper to articulate around the egg. Simplified hand calculations were performed for both parts using the base design from the Lab 5/6 assignment as a starting point, focusing primarily on the length of each component rather than localized stress regions. These calculations gave us a conservative estimate of expected behavior going into FEA analysis.</p>
+          <ul>
+            <li>Two-piece design: top and bottom components connected at pinned joints</li>
+            <li>Dovetail connector for mounting to the robot arm</li>
+            <li>Hand calculations focused on overall part length — used as baseline before FEA</li>
+            <li>Design built upon base geometry from Lab 5/6 rather than starting from scratch</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Iteration</h3><p>Labs 5, 6 &amp; 8 · Geometry refinement · Print testing</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;">📸 Lab 5/6 iteration<br><small>&lt;img src="egg-iter1.jpg"&gt;</small></div>
+            <div class="img-placeholder" style="min-height:140px;">📸 Lab 8 iteration<br><small>&lt;img src="egg-iter2.jpg"&gt;</small></div>
+          </div>
+          <p class="step-blurb">Add your blurb here — describe the specific changes made between Lab 5, Lab 6, and Lab 8 iterations, and what drove each design decision.</p>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>FEA Analysis</h3><p>Fixed vs. pinned constraints · Stress concentrations · Displacement</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;">📸 FEA simulation — bottom piece<br><small>&lt;img src="fea-bottom.jpg"&gt;</small></div>
+            <div class="img-placeholder" style="min-height:140px;">📸 FEA simulation — top piece<br><small>&lt;img src="fea-top.jpg"&gt;</small></div>
+          </div>
+          <p class="step-blurb">FEA simulations were run on both components using fixed and pinned constraint setups. The FEA consistently calculated higher stresses than our hand calculations — expected, since FEA uses the full stress tensor across discrete elements and can overestimate in areas of complex geometry. A notable stress concentration appeared at the base of the top hole in the top component, caused by the pin constraint preventing full rotation and generating localized stress as the part tried to rotate. Fixed constraints produced larger reaction forces than pinned constraints; pinned constraints allowed more freedom of movement, reducing the force required to displace the component 1mm. The egg grabber spring also applies a counteracting axial force not captured in the FEA setup — in reality this would significantly reduce displacement from the egg load.</p>
+          <ul>
+            <li>FEA stresses exceeded hand calc estimates — FEA captures full stress tensor vs. simplified assumptions</li>
+            <li>High stress concentration at top hole base — pin constraint prevents free rotation</li>
+            <li>Fixed constraints → larger reaction forces; pinned constraints → more deformation but smaller forces</li>
+            <li>Spring/egg grabber axial force not modeled — would counteract egg-load displacement in reality</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Final Testing</h3><p>Robot arm assembly · Live egg test · Results</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;">
+            <div class="img-placeholder" style="min-height:140px;">📸 End effector mounted to robot arm<br><small>&lt;img src="egg-mounted.jpg"&gt;</small></div>
+            <div class="img-placeholder" style="min-height:140px;">📸 Live egg test<br><small>&lt;img src="egg-test.jpg"&gt;</small></div>
+          </div>
+          <p class="step-blurb">Add your blurb here — describe the final test day experience. Did your end effector successfully move the egg? What happened, and what did you take away from the live test?</p>
+        </div>
+      </div>
+
+    </div><!-- /cvs-steps -->
+
+    <h2>Final Prototypes</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">The End Effector</p>
+    <div class="final-prototypes">
+      <div class="proto-photos">
+        <div class="img-placeholder" style="min-height:180px;">📸 Final end effector — assembled<br><small>&lt;img src="effector-final.jpg"&gt;</small></div>
+        <div class="img-placeholder" style="min-height:180px;">📸 Top &amp; bottom components<br><small>&lt;img src="effector-parts.jpg"&gt;</small></div>
+        <div class="img-placeholder" style="min-height:180px;">📸 Mounted on robot arm<br><small>&lt;img src="effector-mounted.jpg"&gt;</small></div>
+      </div>
+      <p class="proto-blurb">The final end effector is a 3D-printed two-piece assembly that mounts to the robot arm via a dovetail connector. The top and bottom pieces articulate at pinned joints to grip the egg. Key design decisions — including joint placement, wall geometry, and the use of a spring-loaded egg grabber — were validated through multiple rounds of FEA analysis and physical iteration across 10 labs. If redesigned for mass production, changes would include material substitution away from PA12 (SLS nylon) to reduce environmental impact, redesigned ejection features, and tighter interference fit tolerances for more consistent assembly.</p>
+    </div>
+
+  </div><!-- /project-body -->
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════
+  WAGNER PAGE
+══════════════════════ -->
+<div id="project-wagner" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Northwestern University</span>
+          <span>Timeline: 2023</span>
+        </div>
+        <h1>Wagner Historical Farm House 🏡</h1>
+        <p class="lead">Through the segal design institute, my teamates and I were tasked with designing a solution for visitors of the farm who could not access the site due to a disability.</p>
+        <div class="tag-list"><span class="tag">Design</span><span class="tag">Laser Cuting</span><span class="tag">3D printing</span><span class="tag">Storytelling</span></div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder"><img src="Wagner Farm House Interior Simulation.png"></div>
+      </div>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">🏡</div>
+      <div>
+        <p class="cvs-problem-label">The Challenge</p>
+        <p class="cvs-problem-text">Adolescent visitors of the Wagner Historical Farm House who have mobility disabilities are unable to access the site due to budget restrictions preventing compliance with ADA codes.</p>
+      </div>
+    </div>
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+    <div class="cvs-steps">
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Discover</h3><p>Historical research · Site visits · Context</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">MORE INFO COMING SOON!</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Define</h3><p>Constraints · Accessibility · Preservation goals</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">MORE INFO COMING SOON!</p>.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>Ideate</h3><p>Design concepts · Material selection · Drawings</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Present</h3><p>Community panel · Feedback · Final proposal</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+    </div>
+    <h2>Final Prototypes</h2>
+    <div class="final-prototypes">
+      <div class="proto-photos">
+        <div class="img-placeholder" style="min-height:160px;">📸 Final drawing 1</div>
+        <div class="img-placeholder" style="min-height:160px;">📸 Final drawing 2</div>
+        <div class="img-placeholder" style="min-height:160px;">📸 Final drawing 3</div>
+      </div>
+      <p class="proto-blurb">Add your blurb here — describe the final proposal and community response.</p>
+    </div>
+
+    <div class="report-cta">
+      <h3>See the Final Report 📄</h3>
+      <p>Full research, design drawings, accessibility proposals &amp; community presentation.</p>
+      <a href="#" onclick="alert('Add your report link here');return false;">Read the Final Report →</a>
+    </div>
+  </div>
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════
+  FOCAL PAGE
+══════════════════════ -->
+<div id="project-focal" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Focal Point</span>
+          <span>Timeline: Summer 2025</span>
+        </div>
+        <h1>Focal Point Internship 💡</h1>
+        <p class="lead">Designing architectural LED luminaires for commercial spaces — from CAD modeling to cross-functional design reviews.</p>
+        <div class="tag-list"><span class="tag">Industry</span><span class="tag">Lighting Design</span><span class="tag">Collaboration</span><span class="tag">CAD</span></div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder">📸 Add hero image<br><small>&lt;img src="focal-hero.jpg"&gt;</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">💡</div>
+      <div>
+        <p class="cvs-problem-label">The Challenge</p>
+        <p class="cvs-problem-text">Add your problem statement here — describe the design challenge or opportunity you were given during your internship.</p>
+      </div>
+    </div>
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+    <div class="cvs-steps">
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Onboard</h3><p>Company research · Team · Product lines</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Research</h3><p>Standards · Photometrics · Benchmarking</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>Design</h3><p>CAD modeling · Fixture components · Iteration</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Review &amp; Deliver</h3><p>Design reviews · Documentation · Takeaways</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+    </div>
+    <h2>Final Prototypes</h2>
+    <div class="final-prototypes">
+      <div class="proto-photos">
+        <div class="img-placeholder" style="min-height:160px;">📸 Final design 1</div>
+        <div class="img-placeholder" style="min-height:160px;">📸 Final design 2</div>
+        <div class="img-placeholder" style="min-height:160px;">📸 Final design 3</div>
+      </div>
+      <p class="proto-blurb">Add your blurb here — describe the final deliverables and key takeaways from the internship.</p>
+    </div>
+  </div>
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════
+  THEATRE PROJECT 1
+══════════════════════ -->
+<div id="project-theatre1" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Northwestern University · Theatre</span>
+          <span>Add your timeline here</span>
+        </div>
+        <h1>Theatre Project 1</h1>
+        <p class="lead">Add your project tagline here — a one or two sentence description of the production and your role in it.</p>
+        <div class="tag-list">
+          <span class="tag">Theatre</span><span class="tag">Storytelling</span><span class="tag">Performance</span>
+        </div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder">📸 Add hero image<br><small>&lt;img src="theatre1-hero.jpg"&gt;</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">🎭</div>
+      <div>
+        <p class="cvs-problem-label">The Production</p>
+        <p class="cvs-problem-text">Add a summary here — describe the show, your role, and what made this production meaningful to you.</p>
+      </div>
+    </div>
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+    <div class="cvs-steps">
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Concept</h3><p>Script analysis · Character development · Research</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Rehearsal</h3><p>Blocking · Character work · Collaboration</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>Production</h3><p>Tech week · Costumes · Set &amp; lighting</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Performance</h3><p>Opening night · Run · Reflection</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 Add image</div><div class="img-placeholder" style="min-height:140px;">📸 Add image</div></div>
+          <p class="step-blurb">Add your blurb here.</p>
+        </div>
+      </div>
+    </div>
+    <h2>Performance</h2>
+    <div class="final-prototypes">
+      <div class="proto-photos">
+        <div class="img-placeholder" style="min-height:180px;">📸 Performance photo 1</div>
+        <div class="img-placeholder" style="min-height:180px;">📸 Performance photo 2</div>
+        <div class="img-placeholder" style="min-height:180px;">📸 Performance photo 3</div>
+      </div>
+      <p class="proto-blurb">Add your blurb here — reflect on the performance, what you learned, and how this production connects to your design work and storytelling practice.</p>
+    </div>
+  </div>
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════
+  THEATRE PROJECT 2
+══════════════════════ -->
+<div id="project-theatre2" class="page project-detail-page">
+  <nav>
+    <a href="#" class="nav-logo" onclick="showPage('home-page');return false;">Gabriela Norwood</a>
+    <div class="nav-links"><a href="#" onclick="showAllProjects();return false;">Projects</a><a href="#" onclick="showPage('about-page');return false;">About Me</a>
+      <a href="#" onclick="scrollToFooter();return false;">Connect</a></div>
+  </nav>
+  <div class="cvs-hero">
+    <div class="cvs-hero-inner">
+      <div>
+        <button class="back-btn" onclick="showAllProjects()">←</button>
+        <div class="cvs-meta">
+          <span>Northwestern University Wave Theatre Board</span>
+          <span>December 2025 - February 2026</span>
+        </div>
+        <h1>Sceneic Design for the Winter Guard Play</h1>
+        <p class="lead">I designed the overall set and specific set pieces for the production.</p>
+        <div class="tag-list">
+          <span class="tag">Theatre</span><span class="tag">Storytelling</span><span class="tag">Performance</span>
+        </div>
+      </div>
+      <div class="cvs-hero-img">
+        <div class="cvs-hero-placeholder">📸 MORE INFO COMING SOON!<br><small>&lt;img src="theatre2-hero.jpg"&gt;</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="cvs-problem">
+      <div class="cvs-problem-icon">🎬</div>
+      <div>
+        <p class="cvs-problem-label">The Production</p>
+        <p class="cvs-problem-text">MORE INFO COMING SOON!</p>
+      </div>
+    </div>
+    <h2>The Process</h2>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:1.5rem;margin-top:-0.5rem;">Click each step to learn more ↓</p>
+    <div class="cvs-steps">
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 1</span><h3>Concept</h3><p>Script analysis · Character development · Research</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 MORE INFO COMING SOON!</div><div class="img-placeholder" style="min-height:140px;">MORE INFO COMING SOON!</div></div>
+          <p class="step-blurb">MORE INFO COMING SOON!</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 2</span><h3>Rehearsal</h3><p>Blocking · Character work · Collaboration</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">MORE INFO COMING SOON!</div><div class="img-placeholder" style="min-height:140px;">MORE INFO COMING SOON!</div></div>
+          <p class="step-blurb">MORE INFO COMING SOON!</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 3</span><h3>Production</h3><p>Tech week · Costumes · Set &amp; lighting</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">MORE INFO COMING SOON!</div><div class="img-placeholder" style="min-height:140px;">📸 MORE INFO COMING SOON!</div></div>
+          <p class="step-blurb">MORE INFO COMING SOON!</p>
+        </div>
+      </div>
+      <div class="cvs-step-card" onclick="toggleStep(this)">
+        <div class="cvs-step-front"><span class="step-pill">Step 4</span><h3>Performance</h3><p>Opening night · Run · Reflection</p><span class="step-arrow">﹀</span></div>
+        <div class="cvs-step-detail">
+          <div class="img-grid cols-2" style="margin:0 0 1rem;"><div class="img-placeholder" style="min-height:140px;">📸 MORE INFO COMING SOON!</div><div class="img-placeholder" style="min-height:140px;">MORE INFO COMING SOON!</div></div>
+          <p class="step-blurb">MORE INFO COMING SOON!</p>
+        </div>
+      </div>
+    </div>
+    <h2>Performance</h2>
+    <div class="final-prototypes">
+      <div class="proto-photos">
+        <div class="img-placeholder" style="min-height:180px;">📸 Photos coming soon!</div>
+        <div class="img-placeholder" style="min-height:180px;">📸 Photos coming soon!</div>
+        <div class="img-placeholder" style="min-height:180px;">📸 Photos coming soon!</div>
+      </div>
+      <p class="proto-blurb">More info coming soon! </p>
+    </div>
+  </div>
+  <footer>
+    <h2>Let's Connect! 👋</h2>
+    <div class="footer-links"><a href="your-resume.pdf" target="_blank" class="footer-btn">Resume</a><a href="mailto:gabrielanorwood2026@u.northwestern.edu" class="footer-btn">gabrielanorwood2026@u.northwestern.edu</a><a href="https://www.linkedin.com/in/your-profile" target="_blank" class="footer-btn">LinkedIn</a></div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════
+  JAVASCRIPT
+══════════════════════ -->
+<script>
+  /* ── Page routing ── */
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) { el.classList.add('active'); window.scrollTo(0, 0); }
+  }
+  function showProject(slug) { showPage('project-' + slug); }
+  function showAllProjects() { showPage('all-projects-page'); }
+
+  /* ── Project filter tabs ── */
+  function filterProjects(cat, btn) {
+    // Update active tab
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide cards
+    document.querySelectorAll('.big-proj-card').forEach(card => {
+      const cardCat = card.getAttribute('data-cat') || '';
+      if (cat === 'all' || cardCat.includes(cat)) {
+        card.removeAttribute('data-hidden');
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  /* ── Connect: scroll to footer on current page ── */
+  function scrollToFooter() {
+    const activePage = document.querySelector('.page.active');
+    if (!activePage) return;
+    const footer = activePage.querySelector('footer');
+    if (!footer) return;
+    const top = footer.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+
+  /* ── CVS expandable step cards ── */
+  function toggleStep(card) {
+    card.classList.toggle('open');
+  }
+
+  /* ── About: center circle hover → full-screen bio ── */
+  const orbitCenter = document.querySelector('.orbit-center');
+  const bioFullscreen = document.getElementById('bio-fullscreen');
+  if (orbitCenter && bioFullscreen) {
+    orbitCenter.addEventListener('mouseenter', () => bioFullscreen.classList.add('visible'));
+    orbitCenter.addEventListener('mouseleave', () => bioFullscreen.classList.remove('visible'));
+  }
+
+  /* ── Timeline drag-to-scroll ── */
+  const wrapper = document.getElementById('timelineWrapper');
+  if (wrapper) {
+    let isDown = false, startX, scrollLeft;
+    wrapper.addEventListener('mousedown', e => {
+      isDown = true; wrapper.style.cursor = 'grabbing';
+      startX = e.pageX - wrapper.offsetLeft; scrollLeft = wrapper.scrollLeft;
+    });
+    wrapper.addEventListener('mouseleave', () => { isDown = false; wrapper.style.cursor = 'grab'; });
+    wrapper.addEventListener('mouseup', () => { isDown = false; wrapper.style.cursor = 'grab'; });
+    wrapper.addEventListener('mousemove', e => {
+      if (!isDown) return; e.preventDefault();
+      wrapper.scrollLeft = scrollLeft - (e.pageX - wrapper.offsetLeft - startX) * 1.5;
+    });
+    let tx = 0, ts = 0;
+    wrapper.addEventListener('touchstart', e => { tx = e.touches[0].pageX; ts = wrapper.scrollLeft; });
+    wrapper.addEventListener('touchmove', e => { wrapper.scrollLeft = ts - (e.touches[0].pageX - tx); });
+  }
+</script>
+</body>
+</html>
